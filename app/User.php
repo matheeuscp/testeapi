@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
@@ -11,44 +10,55 @@ use Illuminate\Support\Facades\Hash;
 class User extends Authenticatable
 {
     use Notifiable;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name','nickname', 'email', 'password',
-    ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $fillable = ['name','nickname', 'email', 'cpf', 'password', ];
+    protected $hidden   = ['password', 'remember_token', ];
+    protected $casts    = ['email_verified_at' => 'datetime',];
 
     public function allUsers(){
         return self::all();
     }
 
-    public function saveUsers(){
-        $input = Input::all();
+    public function saveUsers()
+    {
+        $input             = Input::all();
         $input['password'] = Hash::make($input['password']);
-        $user  = new User();
+        $user              = new User();
         $user->fill($input);
         $user->save();
-
+        if(is_null($user)){
+            return false;
+        }
         return $user;
+    }
+
+    public function getUser($id)
+    {
+        return self::find($id);
+    }
+
+
+    public function updateUser($id)
+    {
+        $user = self::find($id);
+        if(is_null($user)){
+            return false;
+        }
+        $input             = Input::all();
+        if(isset($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        }
+        $user->fill($input);
+        $user->save();
+        return $user;
+    }
+
+    public function deleteUser($id)
+    {
+        $user = self::find($id);
+        if(is_null($user)){
+            return false;
+        }
+        return $user->delete();
     }
 }
