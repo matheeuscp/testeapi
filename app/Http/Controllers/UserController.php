@@ -13,8 +13,9 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-    public function allUsers()
+    public function allUsers(Request $request)
     {
+        $request->header('Access-Control-Allow-Origin', '*');  
         return Response::json($this->user->allUsers(), 200);
     }
 
