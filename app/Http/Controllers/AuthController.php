@@ -25,7 +25,6 @@ class AuthController extends Controller
           'error' => 'Invalid credentials'
         ], 401);
       }
-
       // Validate Password
       if (!Hash::check($credentials['password'], $user->password)) {
           return response()->json([
@@ -38,12 +37,12 @@ class AuthController extends Controller
 
       // Get expiration time
       $objectToken = JWTAuth::setToken($token);
-      $expiration = JWTAuth::decode($objectToken->getToken())->get('exp');
+      $expiration  = JWTAuth::decode($objectToken->getToken())->get('exp');
 
       return response()->json([
         'access_token' => $token,
-        'token_type' => 'bearer',
-        'expires_in' => JWTAuth::decode()->get('exp')
-      ]);
+        'token_type'   => 'bearer',
+        'expires_in'   => JWTAuth::decode($objectToken->getToken())->get('exp')
+      ]);        
     }
 }
