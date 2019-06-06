@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 use Hash;
+use Response;
 
 class AuthController extends Controller
 {
@@ -21,15 +22,11 @@ class AuthController extends Controller
 
       // Validate user
       if(!$user) {
-        return response()->json([
-          'error' => 'Invalid credentials'
-        ], 401);
+        return Response::json(['response'=>'Usuário não encontrado'], 401);
       }
       // Validate Password
       if (!Hash::check($credentials['password'], $user->password)) {
-          return response()->json([
-            'error' => 'Invalid credentials'
-          ], 401);
+          return Response::json(['response'=>'Usuário não encontrado'], 401);
       }
 
       // Generate Token
