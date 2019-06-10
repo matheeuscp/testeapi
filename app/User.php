@@ -35,10 +35,15 @@ class User extends Authenticatable implements JWTSubject
     public function saveUsers()
     {
         $input             = Input::all();
+
         $input['password'] = Hash::make($input['password']);
+
         $user              = new User();
+
         $user->fill($input);
+
         $user->save();
+
         if(is_null($user)){
             return false;
         }
