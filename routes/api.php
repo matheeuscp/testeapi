@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::post('auth/login', 'AuthController@authenticate')->middleware('cors');
 Route::post('/cadastrar', ['uses' => 'UserController@saveUser'])->middleware('cors');
+Route::get('/cartao/{token}', ['uses' => 'CartaoController@allCartoes'])->middleware('cors');
 
 Route::group(['prefix' => '/user', 'middleware' => ['cors', 'jwt.auth']], function(){
 

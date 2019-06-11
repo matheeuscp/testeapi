@@ -32,7 +32,7 @@ class AuthController extends Controller
       array_push($error, $errors2);
       // Get user by email
       $user = User::where('email', $credentials['email'])->first();
-
+      
       // Validate user
       if(!$user) {
         return Response::json(['response'=>'Usuário não encontrado', 'error' =>  $error], 401);
@@ -52,6 +52,7 @@ class AuthController extends Controller
       return response()->json([
         'access_token' => $token,
         'token_type'   => 'bearer',
+        'user' => $user,
         'expires_in'   => JWTAuth::decode($objectToken->getToken())->get('exp')
       ]);        
     }

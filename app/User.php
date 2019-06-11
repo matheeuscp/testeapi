@@ -80,4 +80,9 @@ class User extends Authenticatable implements JWTSubject
         }
         return $user->delete();
     }
+
+    public function cartaos()
+    {
+        return $this->hasMany('App\Cartao');
+    }
 }

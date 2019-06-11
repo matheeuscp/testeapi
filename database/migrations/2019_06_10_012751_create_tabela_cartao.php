@@ -13,14 +13,14 @@ class CreateTabelaCartao extends Migration
      */
     public function up()
     {
-        Schema::create('cartoes', function (Blueprint $table) {
+        Schema::create('cartaos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome_cartao');
             $table->string('numero_cartao', 16);
             $table->string('vencimento');
             $table->integer('cod_seguranca');
-            $table->integer('users_id')->unsigned();
-            $table->foreign('users_id')
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
