@@ -20,4 +20,10 @@ class CartaoController extends Controller
         $request->header('Access-Control-Allow-Origin', '*');  
         return Response::json($this->cartao->allCartoes($tokenJson), 200);
     }
+
+    public function saveCartao()
+    {
+        return Response::json($this->cartao->saveCartao(),200);
+        
+    }
 }
