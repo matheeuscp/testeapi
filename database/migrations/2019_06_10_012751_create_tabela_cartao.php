@@ -16,7 +16,7 @@ class CreateTabelaCartao extends Migration
         Schema::create('cartaos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome_cartao');
-            $table->string('numero_cartao', 16);
+            $table->string('numero_cartao', 20);
             $table->string('vencimento');
             $table->integer('cod_seguranca');
             $table->integer('user_id')->unsigned();
@@ -36,6 +36,6 @@ class CreateTabelaCartao extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cartoes');
+        Schema::dropIfExists('cartaos');
     }
 }
