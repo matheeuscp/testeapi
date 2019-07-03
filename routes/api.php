@@ -16,6 +16,7 @@ Route::post('auth/login', 'AuthController@authenticate')->middleware('cors');
 Route::post('/cadastrar', ['uses' => 'UserController@saveUser'])->middleware('cors');
 Route::get('/cartao/{token}', ['uses' => 'CartaoController@allCartoes'])->middleware('cors');
 Route::post('/cartao/{token}', ['uses' => 'CartaoController@saveCartao'])->middleware('cors');
+Route::post('/produtos/{token}', ['uses' => 'ProdutoController@allProducts'])->middleware('cors');
 
 Route::group(['prefix' => '/user', 'middleware' => ['cors', 'jwt.auth']], function(){
     Route::get('',      ['uses' => 'UserController@allUsers']);
