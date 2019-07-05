@@ -31,10 +31,12 @@ class Produto extends Authenticatable implements JWTSubject
 
     public function allProducts($tokenJson){
         $input     = Input::all();
-        $tokenJson = JWTAuth::getToken();
-        $apy       = JWTAuth::getPayload($tokenJson)->toArray();
-        $prod      = self::where('nome', 'like', $input['nome'] .'%')->get();
-        return $prod;
+        if(!empty($input['nome'])){
+            $tokenJson = JWTAuth::getToken();
+            $apy       = JWTAuth::getPayload($tokenJson)->toArray();
+            $prod      = self::where('nome', 'like', trim($input['nome']) .'%')->take(10)->get();
+            return $prod;
+        }
     }
 
     // public function saveCartao()
